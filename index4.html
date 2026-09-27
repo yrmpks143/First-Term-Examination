@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Percentage Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .input-group { margin-bottom: 10px; }
+        label { display: inline-block; width: 220px; }
+        button { padding: 8px 16px; margin-top: 15px; cursor: pointer; }
+        #result { font-weight: bold; font-size: 1.2em; color: #2e7d32; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Percentage Calculator</h2>
+
+    <!-- System.out.println("Enter Elective marks (out of 100):"); -->
+    <div class="input-group">
+        <label for="elective">Elective marks (out of 100):</label>
+        <input type="number" id="elective" step="any" placeholder="0-100">
+    </div>
+
+    <hr>
+    <!-- System.out.println("Enter rest of the marks (out of 80):"); -->
+    <p><strong>Enter rest of the 9 subject marks (out of 80):</strong></p>
+    
+    <!-- Replacing float x[] = new float[9] with 9 inputs -->
+    <div id="subjectsContainer">
+        <!-- Input fields 1 to 9 generated dynamically -->
+    </div>
+
+    <!-- Trigger button replacing public static void main execution -->
+    <button onclick="calculatePercentage()">Calculate Percentage</button>
+
+    <!-- System.out.println("your percentage is: "+p+"%"); -->
+    <p id="result"></p>
+
+    <script>
+        // Generate the 9 input boxes dynamically to keep HTML clean
+        const container = document.getElementById('subjectsContainer');
+        for (let i = 1; i <= 9; i++) {
+            container.innerHTML += `
+                <div class="input-group">
+                    <label for="sub${i}">Subject ${i} (out of 80):</label>
+                    <input type="number" class="subject-input" id="sub${i}" step="any" placeholder="0-80">
+                </div>
+            `;
+        }
+
+        // Logic equivalent to main()
+        function calculatePercentage() {
+            // float a = 0;
+            let a = 0;
+
+            // float n1 = in.nextFloat();
+            let n1 = parseFloat(document.getElementById('elective').value) || 0;
+
+            // Reading float x[] = new float[9] via loop
+            const subjectInputs = document.querySelectorAll('.subject-input');
+            
+            // for(i=0; i<9; i++)
+            for (let i = 0; i < subjectInputs.length; i++) {
+                let mark = parseFloat(subjectInputs[i].value) || 0;
+                mark *= 1.25; // x[i] *= 1.25;
+                a += mark;    // a += x[i];
+            }
+
+            // float ts = n1 + a;
+            let ts = n1 + a;
+
+            // float p = (ts / 1000) * 100;
+            let p = (ts / 1000) * 100;
+
+            // System.out.println("your percentage is: " + p + "%");
+            document.getElementById('result').innerText = "Your percentage is: " + p.toFixed(2) + "%";
+        }
+    </script>
+
+</body>
+</html>
